@@ -58,3 +58,21 @@ function scrollToTop() {
     backToTop.classList.toggle("visible", window.scrollY > 600);
   });
 })();
+
+(function initScrollReveal() {
+  const revealEls = document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealEls.forEach((el) => observer.observe(el));
+})();
